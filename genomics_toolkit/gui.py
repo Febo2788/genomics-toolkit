@@ -775,11 +775,24 @@ Mean allele frequency: {stats['mean_allele_freq']:.3f}
             try:
                 viz = Visualizer()
                 
-                # Add plots to results if they exist
-                if hasattr(self, 'plot_widget') and self.plot_widget.figure:
+                # Generate plots specifically for the report
+                if 'sequences' in self.current_results and self.current_results['sequences']:
                     if 'plots' not in self.current_results:
                         self.current_results['plots'] = {}
-                    self.current_results['plots']['Analysis Plot'] = self.plot_widget.figure
+                    
+                    # Create composition plot for the first sequence
+                    seq_data = self.current_results['sequences'][0]
+                    if 'composition' in seq_data:
+                        composition_fig = viz.plot_sequence_composition(seq_data['composition'], interactive=False)
+                        self.current_results['plots']['Sequence Composition'] = composition_fig
+                
+                elif 'variants' in self.current_results:
+                    if 'plots' not in self.current_results:
+                        self.current_results['plots'] = {}
+                    
+                    # Create variant plot
+                    variant_fig = viz.plot_variant_statistics(self.current_results['variants'])
+                    self.current_results['plots']['Variant Statistics'] = variant_fig
                 
                 viz.create_html_report(self.current_results, file_path)
                 
