@@ -108,5 +108,5 @@ LABEL maintainer="your.email@example.com" \
       org.opencontainers.image.description="Comprehensive bioinformatics pipeline for DNA/RNA sequence analysis and variant calling" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="Your Name <your.email@example.com>" \
-      org.opencontainers.image.source="https://github.com/yourusername/genomics-toolkit" \
+      org.opencontainers.image.source="https://github.com/Febo2788/genomics-toolkit" \
       org.opencontainers.image.licenses="MIT"

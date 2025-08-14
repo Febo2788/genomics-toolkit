@@ -191,7 +191,7 @@ Examples:
   # Interactive shell
   docker run -it -v /path/to/data:/app/data genomics-toolkit bash
 
-For more information, visit: https://github.com/yourusername/genomics-toolkit
+For more information, visit: https://github.com/Febo2788/genomics-toolkit
 EOF
 }
 

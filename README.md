@@ -213,7 +213,7 @@ Check out the [interactive tutorial](notebooks/GenomicsToolkit_Tutorial.ipynb) t
 
 ```bash
 # Development setup
-git clone https://github.com/yourusername/genomics-toolkit.git
+git clone https://github.com/Febo2788/genomics-toolkit.git
 cd genomics-toolkit
 pip install -e ".[dev]"
 pre-commit install
@@ -243,9 +243,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/genomics-toolkit/issues)
-- **Documentation**: [Wiki](https://github.com/yourusername/genomics-toolkit/wiki)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/genomics-toolkit/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Febo2788/genomics-toolkit/issues)
+- **Documentation**: [Wiki](https://github.com/Febo2788/genomics-toolkit/wiki)
+- **Discussions**: [GitHub Discussions](https://github.com/Febo2788/genomics-toolkit/discussions)
 
 ## 🏆 Citation
 
@@ -256,7 +256,7 @@ If you use GenomicsToolkit in your research, please cite:
   title = {GenomicsToolkit: A comprehensive bioinformatics pipeline},
   author = {Felix Borrego},
   year = {2024},
-  url = {https://github.com/yourusername/genomics-toolkit}
+  url = {https://github.com/Febo2788/genomics-toolkit}
 }
 ```
 

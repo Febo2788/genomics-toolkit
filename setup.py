@@ -14,7 +14,7 @@ setup(
     description="A comprehensive bioinformatics pipeline for DNA/RNA sequence analysis and variant calling",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/genomics-toolkit",
+    url="https://github.com/Febo2788/genomics-toolkit",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
