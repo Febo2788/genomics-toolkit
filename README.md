@@ -255,11 +255,9 @@ If you use GenomicsToolkit in your research, please cite:
 @software{genomics_toolkit,
   title = {GenomicsToolkit: A comprehensive bioinformatics pipeline},
   author = {Felix Borrego},
-  year = {2024},
+  year = {2025},
   url = {https://github.com/Febo2788/genomics-toolkit}
 }
 ```
 
 ---
-
-**Made with ❤️ for the bioinformatics community**
