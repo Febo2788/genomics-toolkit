@@ -58,6 +58,9 @@ genomics-toolkit pipeline data/sample_reads.fastq --reference data/reference_gen
 - **Variant Statistics**: SNP/indel distribution visualizations
 - **ORF Analysis**: Open reading frame mapping
 - **Publication Ready**: High-quality exportable figures
+- **HTML Reports**: Professional reports with embedded plots
+
+📊 **[View Example HTML Report](docs/examples/sample_ecoli_report.html)** - See actual report output
 
 ### ⚙️ **Settings Tab**
 ![Configuration](docs/images/settings_tab.png)
@@ -106,6 +109,8 @@ GenomicsToolkit was successfully tested on **Escherichia coli O157:H7 str. EC411
 - **ORFs Detected**: 287 open reading frames
 - **Analysis Time**: < 30 seconds
 - **Output**: Professional HTML report with interactive visualizations
+
+📊 **[View Live Example Report](docs/examples/sample_ecoli_report.html)** - See the actual HTML output generated from E. coli analysis
 
 ## 🎯 Usage Examples
 
