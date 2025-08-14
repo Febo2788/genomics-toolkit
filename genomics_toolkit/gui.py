@@ -496,10 +496,18 @@ class GenomicsToolkitGUI(QMainWindow):
         layout.addWidget(QLabel("Detailed Results:"))
         layout.addWidget(self.results_table)
         
-        # Export button
+        # Export buttons
+        export_layout = QHBoxLayout()
+        
         export_btn = QPushButton("Export Results")
         export_btn.clicked.connect(self.export_results)
-        layout.addWidget(export_btn)
+        export_layout.addWidget(export_btn)
+        
+        html_report_btn = QPushButton("Generate HTML Report")
+        html_report_btn.clicked.connect(self.generate_html_report)
+        export_layout.addWidget(html_report_btn)
+        
+        layout.addLayout(export_layout)
         
         self.tab_widget.addTab(tab, "Results")
         
@@ -749,6 +757,47 @@ Mean allele frequency: {stats['mean_allele_freq']:.3f}
         if file_path:
             self.plot_widget.figure.savefig(file_path, dpi=300, bbox_inches='tight')
             QMessageBox.information(self, "Success", f"Plot saved to {file_path}")
+    
+    def generate_html_report(self):
+        """Generate HTML report."""
+        if not self.current_results:
+            QMessageBox.warning(self, "No Data", "No results available for HTML report.")
+            return
+        
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "Save HTML Report",
+            "genomics_analysis_report.html",
+            "HTML files (*.html);;All files (*.*)"
+        )
+        
+        if file_path:
+            try:
+                viz = Visualizer()
+                
+                # Add plots to results if they exist
+                if hasattr(self, 'plot_widget') and self.plot_widget.figure:
+                    if 'plots' not in self.current_results:
+                        self.current_results['plots'] = {}
+                    self.current_results['plots']['Analysis Plot'] = self.plot_widget.figure
+                
+                viz.create_html_report(self.current_results, file_path)
+                
+                QMessageBox.information(self, "Success", f"HTML report saved to {file_path}")
+                
+                # Ask if user wants to open the report
+                reply = QMessageBox.question(
+                    self, "Open Report", 
+                    "Would you like to open the HTML report in your browser?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
+                
+                if reply == QMessageBox.StandardButton.Yes:
+                    import webbrowser
+                    webbrowser.open(f"file://{Path(file_path).absolute()}")
+                
+            except Exception as e:
+                QMessageBox.critical(self, "Report Error", f"Failed to generate HTML report: {str(e)}")
     
     def export_results(self):
         """Export analysis results."""
