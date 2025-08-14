@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  genomics-toolkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: genomics-toolkit:latest
+    container_name: genomics-toolkit
+    
+    # Environment variables
+    environment:
+      - GENOMICS_TOOLKIT_LOG_LEVEL=INFO
+      - GENOMICS_TOOLKIT_MAX_WORKERS=4
+      - PYTHONPATH=/app
+    
+    # Volume mounts
+    volumes:
+      - ./data:/app/data:ro              # Input data (read-only)
+      - ./output:/app/output:rw          # Output directory (read-write)
+      - ./config:/app/config:rw          # Configuration (read-write)
+      - /tmp:/tmp:rw                     # Temporary files
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Network
+    networks:
+      - genomics-network
+    
+    # Working directory
+    working_dir: /app
+    
+    # Default command (can be overridden)
+    command: ["genomics-toolkit", "--help"]
+    
+    # User
+    user: genomics
+
+  # Development service with mounted source code
+  genomics-toolkit-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: genomics-toolkit:dev
+    container_name: genomics-toolkit-dev
+    
+    environment:
+      - GENOMICS_TOOLKIT_LOG_LEVEL=DEBUG
+      - GENOMICS_TOOLKIT_MAX_WORKERS=2
+      - PYTHONPATH=/app
+    
+    volumes:
+      - .:/app:rw                        # Mount source code for development
+      - ./data:/app/data:ro
+      - ./output:/app/output:rw
+      - ./config:/app/config:rw
+      - /tmp:/tmp:rw
+    
+    networks:
+      - genomics-network
+    
+    working_dir: /app
+    command: ["bash"]  # Interactive shell for development
+    stdin_open: true
+    tty: true
+    user: genomics
+
+  # Jupyter notebook service for analysis
+  genomics-notebook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: genomics-toolkit:notebook
+    container_name: genomics-notebook
+    
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=genomics-toolkit
+    
+    volumes:
+      - ./notebooks:/app/notebooks:rw
+      - ./data:/app/data:ro
+      - ./output:/app/output:rw
+    
+    ports:
+      - "8888:8888"
+    
+    networks:
+      - genomics-network
+    
+    working_dir: /app/notebooks
+    
+    command: >
+      bash -c "
+        pip install jupyter jupyterlab ipywidgets &&
+        jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+        --NotebookApp.token=genomics-toolkit
+        --NotebookApp.allow_origin='*'
+        --NotebookApp.base_url=/lab
+      "
+    
+    user: genomics
+    
+    # Health check for Jupyter
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/lab"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  genomics-network:
+    driver: bridge
+    name: genomics-network
+
+# Volumes for persistent data
+volumes:
+  genomics-data:
+    name: genomics-data
+    driver: local
+  
+  genomics-output:
+    name: genomics-output
+    driver: local
+    
+  genomics-config:
+    name: genomics-config
+    driver: local

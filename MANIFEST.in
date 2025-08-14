@@ -1,0 +1,15 @@
+include README.md
+include LICENSE
+include requirements.txt
+include pyproject.toml
+recursive-include genomics_toolkit *.py
+recursive-include data *.fasta *.fastq *.vcf
+recursive-include notebooks *.ipynb
+recursive-include scripts *.py *.sh
+recursive-include tests *.py
+include Dockerfile
+include docker-compose.yml
+include .dockerignore
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store
