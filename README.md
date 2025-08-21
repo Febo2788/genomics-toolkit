@@ -1,15 +1,5 @@
 # GenomicsToolkit
-
-**A comprehensive bioinformatics pipeline for DNA/RNA sequence analysis and variant calling**
-
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/)
-[![GUI](https://img.shields.io/badge/GUI-PyQt6-green.svg)](https://www.qt.io/)
-
-![GenomicsToolkit GUI](docs/images/analysis_tab.png)
-
-## 🚀 Quick Start
+A small program I made for the HPC (high performance computer) at UTSA so that our team can run our analyses faster!
 
 ### 🖥️ **GUI Mode (Recommended)**
 ```bash
